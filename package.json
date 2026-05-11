@@ -1,0 +1,40 @@
+{
+  "name": "fidelya-print-bridge",
+  "version": "0.1.0",
+  "description": "Local print bridge for FIDELYA — manages USB and network thermal printers with persistent connections, queue per printer, and automatic recovery.",
+  "private": true,
+  "main": "dist/index.js",
+  "bin": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "build:binaries": "npm run build && pkg . --out-path bin",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "usb": "^2.14.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.7",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.5",
+    "@yao-pkg/pkg": "^5.16.0"
+  },
+  "pkg": {
+    "targets": [
+      "node20-macos-arm64",
+      "node20-macos-x64",
+      "node20-win-x64"
+    ],
+    "assets": ["node_modules/usb/prebuilds/**/*"],
+    "outputPath": "bin"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
